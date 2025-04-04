@@ -99,3 +99,6 @@ Routes:
 | 422 | Unprocessable Entity |
 
 За подробностями - см. openapi.yaml
+
+Для сущности User использовал Security bundle
+Для реализации JWT использовал LexikJWTAuthenticationBundle
