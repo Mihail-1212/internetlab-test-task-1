@@ -90,12 +90,14 @@ final class UserController extends AbstractController
         return $this->json($userInfo);
     }
 
-    #[Route('/{user}', name: 'app_user_change_password', methods: ['POST'])]
+    #[Route('/changePassword', name: 'app_user_change_password', methods: ['POST'])]
     public function changePassword(
-        User                                       $user,
         #[MapRequestPayload] Dto\ChangePasswordDto $changePasswordDto
     ): JsonResponse
     {
+        /** @var User $user */
+        $user = $this->getUser();
+
         $hashedPassword = $this->passwordHasher->hashPassword($user, $changePasswordDto->password);
         $user->setPassword($hashedPassword);
 

@@ -1,0 +1,243 @@
+openapi: 3.0.3
+info:
+  title: Test project - symfony application
+  description: ""
+  version: "1.0"
+
+servers:
+  - url: http://localhost:8000/
+
+paths:
+  /api/user:
+    get:
+      description: Получить список пользователей
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/getUser"
+    post:
+      description: Создание нового пользователя
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: Логин пользователя
+                  example: username
+                password:
+                  type: string
+                  description: Пароль пользователя
+                  example: password
+                lastName:
+                  type: string
+                  description: Фамилия пользователя
+                  example: Бонд
+                firstName:
+                  type: string
+                  description: Имя пользователя
+                  example: Джеймс
+                secondName:
+                  type: string
+                  description: Отчество пользователя
+                  example: Бондович
+                  nullable: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/getUser"
+  /api/user/{id}:
+    put:
+      description: Обновить пользователя по ID
+      parameters:
+        - name: id
+          in: path
+          description: ID пользователя
+          example: 1
+          required: true
+          schema:
+            type: number
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: Логин пользователя
+                  example: username
+                lastName:
+                  type: string
+                  description: Фамилия пользователя
+                  example: Бонд
+                firstName:
+                  type: string
+                  description: Имя пользователя
+                  example: Джеймс
+                secondName:
+                  type: string
+                  description: Отчество пользователя
+                  example: Бондович
+                  nullable: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: Идентификатор пользователя
+                      example: 1
+                    username:
+                      type: string
+                      description: Логин пользователя
+                      example: username
+                    lastName:
+                      type: string
+                      description: Фамилия пользователя
+                      example: Бонд
+                    firstName:
+                      type: string
+                      description: Имя пользователя
+                      example: Джеймс
+                    secondName:
+                      type: string
+                      description: Отчество пользователя
+                      example: Бондович
+                      nullable: true
+        401:
+          description: Unauthorized
+        404:
+          description: Not found
+    delete:
+      description: Удалить пользователя по ID
+      parameters:
+        - name: id
+          in: path
+          description: ID пользователя
+          example: 1
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: OK
+        401:
+          description: Unauthorized
+        404:
+          description: Not found
+  /api/user/me:
+    get:
+      description: Получение информации о текущем пользователе
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/meUser"
+        401:
+          description: Unauthorized
+  /api/user/changePassword:
+    post:
+      description: Изменение пароля текущего пользователя
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  description: Пароль пользователя
+                  example: password
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/getUser"
+        401:
+          description: Unauthorized
+        422:
+          description: Unprocessable Entity
+
+components:
+  schemas:
+    getUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Идентификатор пользователя
+          example: 1
+        username:
+          type: string
+          description: Логин пользователя
+          example: username
+        lastName:
+          type: string
+          description: Фамилия пользователя
+          example: Бонд
+        firstName:
+          type: string
+          description: Имя пользователя
+          example: Джеймс
+        secondName:
+          type: string
+          description: Отчество пользователя
+          example: Бондович
+          nullable: true
+    meUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Идентификатор пользователя
+          example: 1
+        username:
+          type: string
+          description: Логин пользователя
+          example: username
+        lastName:
+          type: string
+          description: Фамилия пользователя
+          example: Бонд
+        firstName:
+          type: string
+          description: Имя пользователя
+          example: Джеймс
+        secondName:
+          type: string
+          description: Отчество пользователя
+          example: Бондович
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+          description: Дата-время создания записи
+          example: 2025-04-04T14:06:21+00:00
+        updatedAt:
+          type: string
+          format: date-time
+          description: Дата-время обновления записи
+          example: 2025-04-04T14:06:21+00:00
