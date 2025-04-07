@@ -98,6 +98,17 @@ Routes:
 | 401 | Unauthorized |
 | 422 | Unprocessable Entity |
 
+
+### /api/user/auth
+#### POST
+##### Description:
+Авторизоваться под пользователем (получить токен)
+##### Responses
+| Code | Description |
+| ---- | ----------- |
+| 200 | OK |
+| 401 | Invalid credentials |
+
 За подробностями - см. openapi.yaml
 
 Для сущности User использовал Security bundle

@@ -180,6 +180,37 @@ paths:
           description: Unauthorized
         422:
           description: Unprocessable Entity
+  /api/user/auth:
+    post:
+      description: Авторизоваться под пользователем (получить токен)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: Логин пользователя
+                  example: username
+                password:
+                  type: string
+                  description: Пароль пользователя
+                  example: password
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    description: Token для подтверждания авторизации
+                    type: string
+                    example: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9
+        401:
+          description: Invalid credentials
 
 components:
   schemas:
